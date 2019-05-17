@@ -32,7 +32,7 @@ app.listen(port, () => {
 });
 
 app.get('/platforms', db.getPlatforms);
-app.get('/platform/:idPlataforma', db.getPlatformById);
+app.get('/platform/:id_platform', db.getPlatformById);
 app.post('/platform', db.createPlatform);
 app.put('/platform/:idPlataforma', db.updatePlatform);
 

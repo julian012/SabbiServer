@@ -10,7 +10,7 @@ const client = new pg.Client({
 client.connect();
 
 const getPlatforms = (req, res) => {
-    client.query('SELECT * FROM PLATAFORMA ORDER BY 2 ASC', (err, results) => {
+    client.query('SELECT * FROM platform', (err, results) => {
       if (err) {
         res.status(401).json({ message : `${err.message}`});
       }else{
@@ -20,19 +20,20 @@ const getPlatforms = (req, res) => {
 };
 
 const getPlatformById = (req, res) => {
-    let idPlataforma = parseInt(req.params.idPlataforma);
-    client.query('SELECT * FROM PLATAFORMA WHERE id_plataforma = $1', [idPlataforma], (err, results) => {
+    let id_platform = parseInt(req.params.id_platform);
+    console.log(id_platform);
+    client.query('SELECT * FROM platform WHERE id_platform = $1', [id_platform], (err, results) => {
       if (err) {
-        response.status(401).json({ message : `${error.message}`});
+        res.status(401).json({ message : `${error.message}`});
       }else{
-          response.status(200).json(res.rows);
+          res.status(200).json(results.rows);
       }
     });
 };
 
 const createPlatform = (req, res) => {
     let { idPlataforma, nombrePlataforma } = req.body;  
-    client.query('INSERT INTO PLATAFORMA (ID_PLATAFORMA, NOMBRE_PLATAFORMA) VALUES ($1, $2)', [idPlataforma, nombrePlataforma], (err, result) => {
+    client.query('INSERT INTO PLATFORM (ID_PLATAFORMA, NOMBRE_PLATAFORMA) VALUES ($1, $2)', [idPlataforma, nombrePlataforma], (err, result) => {
         if (err) {
             res.status(401).json({ message : `${err.message}`});
         }else{
@@ -46,7 +47,7 @@ const updatePlatform = (req, res) => {
     let { nombrePlataforma } = req.body;
   
     client.query(
-      'UPDATE PLATAFORMA SET NOMBRE_PLATAFORMA = $1 WHERE ID_PLATAFORMA = $2',
+      'UPDATE PLATAFORMA SET NOMBRE_PLATAFORM = $1 WHERE ID_PLATAFORMA = $2',
       [nombrePlataforma, idPlataforma],
       (err, results) => {
         if (err) {
