@@ -32,28 +32,26 @@ const getPlatformById = (req, res) => {
 };
 
 const createPlatform = (req, res) => {
-    let { idPlataforma, nombrePlataforma } = req.body;  
-    client.query('INSERT INTO PLATFORM (ID_PLATAFORMA, NOMBRE_PLATAFORMA) VALUES ($1, $2)', [idPlataforma, nombrePlataforma], (err, result) => {
+    let { id_platform, name_platform, status_platform } = req.body;  
+    client.query("INSERT INTO PLATFORM (id_platform,name_platform, status_platform) VALUES (nextval('id_platform_sequence'),$1, $2)", [name_platform, status_platform], (err, result) => {
         if (err) {
             res.status(401).json({ message : `${err.message}`});
         }else{
-            res.status(201).json({ message : `Platform added with ID: ${idPlataforma}`});
+            res.status(201).json({ message : `Platform added with Name: ${name_platform}`});
         }
     })
 };
 
 const updatePlatform = (req, res) => {
-    let idPlataforma = parseInt(req.params.idPlataforma);
-    let { nombrePlataforma } = req.body;
-  
+    let { id_platform, name_platform, status_platform } = req.body; 
     client.query(
-      'UPDATE PLATAFORMA SET NOMBRE_PLATAFORM = $1 WHERE ID_PLATAFORMA = $2',
-      [nombrePlataforma, idPlataforma],
+      'UPDATE PLATFORM SET name_platform = $2, status_platform = $3 WHERE id_platform = $1',
+      [id_platform, name_platform, status_platform],
       (err, results) => {
         if (err) {
           res.status(401).json({ message : `${err.message}`});
         }else{
-          response.status(200).send(`Plataforma modified with ID: ${idPlataforma}`);
+          res.status(200).send(`Plataforma modified with Name: ${name_platform}`);
         }
       }
     )
