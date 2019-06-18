@@ -30,8 +30,9 @@ app.get('/', (request, response) => {
     response.json({ info: 'Node.js, Express, and Postgres API' })
 });
 
-app.listen(port, () => {
-    console.log(`App running on port ${port}.`)
+app.set('port', process.env.PORT || 3000);
+app.listen(app.get('port'), () => {
+    console.log(`App running on port ${app.get('port')}.`)
 });
 
 app.get('/platforms', db.getPlatforms);
