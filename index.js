@@ -30,7 +30,7 @@ app.get('/', (request, response) => {
     response.json({ info: 'Node.js, Express, and Postgres API' })
 });
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || port);
 app.listen(app.get('port'), () => {
     console.log(`App running on port ${app.get('port')}.`)
 });
